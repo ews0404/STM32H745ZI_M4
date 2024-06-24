@@ -9,11 +9,17 @@ static uint32_t m4_ledCounter = 0;
 
 static void startM7(void);
 static void waitForM7(void);
+static void pwr_init(void);
+static void flash_init(void);
 
 void sys::init(void)
 {
+	SYS_TRACE("m4 init\n");
+
 	// let the M4 do its conifiguration while the M7 waits
 	configurePin(m4_led);
+	pwr_init();
+	flash_init();
 	
 	// make the M4 wait while the M7 does its configuration
 	startM7();
@@ -44,3 +50,31 @@ void waitForM7(void)
 }
 
 
+void pwr_init(void)
+{
+	/* The nucleo board is connected with a direct SMPS step down converter supply (option 2 in RM0399 Table 33), and this 
+	 * causes the hardware to ignore attempts to set some register values, e.g. LDOEN. This has the effect of also limiting 
+	 * the clock speed to 400MHz max at voltage VOS1 (DS12923, Table 23). */
+	
+	uint32_t timeout = 0xFFFF;
+
+	CLEAR_BIT(PWR->CR3, PWR_CR3_LDOEN);												// turn off LDO, SMPS only
+	MODIFY_REG(PWR->D3CR, PWR_D3CR_VOS_Msk, PWR_D3CR_VOS_1 | PWR_D3CR_VOS_0);		// set VOS scale 1
+	while ((!READ_BIT(PWR->D3CR, PWR_D3CR_VOSRDY)) && (timeout>0)) { timeout--; }	// wait for the voltage to stabilize	
+	if (timeout == 0) { SYS_ERROR("VOSRDY timeout"); }
+}
+
+
+void flash_init()
+{
+	/* This section configures the flash memory wait states and write/read times for the main
+	 * AXI data bus. This bus runs at a max of 240MHz (usually half of the core clock speed) and 
+	 * the settings depend on Vcore setpoint (VOS0-3) as shown in RM0399 Table 16.
+	 * 
+	 * Anticipate running at VOS1 with a 400MHz core clock when the clock chain setup is complete
+	 * then the AXI bus will be at 200MHz and Table 16 says to use WRHIGHFREQ = 10 and 
+	 * latency = 2 wait states */
+	
+	MODIFY_REG(FLASH->ACR, FLASH_ACR_WRHIGHFREQ_Msk, FLASH_ACR_WRHIGHFREQ_1);
+	MODIFY_REG(FLASH->ACR, FLASH_ACR_LATENCY_Msk, FLASH_ACR_LATENCY_2WS);		
+}
