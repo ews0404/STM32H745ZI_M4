@@ -25,6 +25,7 @@
     <ProjectFile>M4.vcxproj</ProjectFile>
     <RemoteBuildEnvironment>
       <Records />
+      <EnvironmentSetupFiles />
     </RemoteBuildEnvironment>
     <ParallelJobCount>1</ParallelJobCount>
     <SuppressDirectoryChangeMessages>true</SuppressDirectoryChangeMessages>
@@ -103,7 +104,7 @@
     <DebugMethod>
       <ID>com.sysprogs.arm.openocd.st</ID>
       <Configuration xsi:type="com.visualgdb.edp.openocd.settings">
-        <CommandLine>-f interface/stlink-dap.cfg --set "CHIPNAME $$SYS:MCU_ID$$Xx" -f target/stm32h7x_dual_core.cfg -c init -c "reset init"</CommandLine>
+        <CommandLine>--set "CHIPNAME $$SYS:MCU_ID$$Xx" --set "USE_CTI 1" -f interface/stlink-dap.cfg -f target/stm32h7x_dual_core.cfg -c init -c "reset init"</CommandLine>
         <ExtraParameters>
           <Frequency xsi:nil="true" />
           <BoostedFrequency xsi:nil="true" />

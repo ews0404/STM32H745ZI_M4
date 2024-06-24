@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <ClCompile>
-      <AdditionalIncludeDirectories>Code/inc;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Code/inc;Code;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions />
       <CLanguageStandard />
@@ -64,22 +64,33 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="Code\m4_main.cpp" />
-    <ClCompile Include="Code\src\gpio.cpp" />
+    <ClCompile Include="Code\sys\src\gpio.cpp" />
+    <ClCompile Include="Code\sys\system.cpp" />
     <ClCompile Include="Code\startup_stm32h745xx.c" />
     <None Include="stm32.props" />
     <None Include="M4-Debug.vgdbsettings" />
     <None Include="M4-Release.vgdbsettings" />
     <None Include="stm32.xml" />
+    <ClCompile Include="$(EFP_BASE)\Profiler\FastSemihosting.cpp" />
+    <ClCompile Include="$(EFP_BASE)\Profiler\InstrumentingProfiler.cpp" />
+    <ClCompile Include="$(EFP_BASE)\Profiler\TestResourceManager.cpp" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\SysprogsProfiler.h" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\SmallNumberCoder.h" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\SysprogsProfilerInterface.h" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\ProfilerFreeRTOSHooks.h" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\CustomRealTimeWatches.h" />
+    <ClInclude Include="$(EFP_BASE)\Profiler\DebuggerChecker.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Code\inc\cmsis_gcc.h" />
-    <ClInclude Include="Code\inc\core_cm4.h" />
-    <ClInclude Include="Code\inc\core_cm7.h" />
-    <ClInclude Include="Code\inc\core_cmFunc.h" />
-    <ClInclude Include="Code\inc\core_cmInstr.h" />
-    <ClInclude Include="Code\inc\core_cmSimd.h" />
-    <ClInclude Include="Code\inc\gpio.h" />
-    <ClInclude Include="Code\inc\stm32h745xx.h" />
-    <ClInclude Include="Code\inc\stm32h7xx.h" />
+    <ClInclude Include="Code\sys\inc\cmsis_gcc.h" />
+    <ClInclude Include="Code\sys\inc\core_cm4.h" />
+    <ClInclude Include="Code\sys\inc\core_cm7.h" />
+    <ClInclude Include="Code\sys\inc\core_cmFunc.h" />
+    <ClInclude Include="Code\sys\inc\core_cmInstr.h" />
+    <ClInclude Include="Code\sys\inc\core_cmSimd.h" />
+    <ClInclude Include="Code\sys\inc\gpio.h" />
+    <ClInclude Include="Code\sys\inc\stm32h745xx.h" />
+    <ClInclude Include="Code\sys\inc\stm32h7xx.h" />
+    <ClInclude Include="Code\sys\system.h" />
   </ItemGroup>
 </Project>

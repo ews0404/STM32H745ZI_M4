@@ -1572,7 +1572,6 @@ void * g_pfnVectors[0xa6] __attribute__ ((section (".isr_vector"), used)) =
 	&WAKEUP_PIN_IRQHandler,
 };
 
-//void SystemInit();
 void __libc_init_array();
 int main();
 
@@ -1594,7 +1593,6 @@ void __attribute__((naked, noreturn)) Reset_Handler()
 	for (pDest = &_sbss; pDest < &_ebss; pDest++)
 		*pDest = 0;
 
-	//SystemInit();
 	__libc_init_array();
 	(void)main();
 	for (;;) ;
