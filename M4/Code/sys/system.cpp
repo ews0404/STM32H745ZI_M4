@@ -7,8 +7,8 @@ using namespace gpio;
 static pinDef m4_led = { .port = GPIOB, .pin = PIN_0, .mode = Output, .type = PushPull, .speed = Low, .pull = None, .alternate = AF0 };
 static uint32_t m4_ledCounter = 0;
 
-static void led_init(void);
-static void led_update(void);
+static void m4_led_init(void);
+static void m4_led_update(void);
 static void pwr_init(void);
 static void flash_init(void);
 static void lse_clock_init(void);
@@ -20,7 +20,7 @@ static void waitForM7(void);
 void sys::init(void)
 {
 	// let the M4 do its conifiguration while the M7 waits
-	led_init();
+	m4_led_init();
 	pwr_init();
 	flash_init();
 	lse_clock_init();
@@ -34,18 +34,18 @@ void sys::init(void)
 
 void sys::update(void)
 {
-	led_update();
+	m4_led_update();
 }
 
 
-void led_init(void)
+void m4_led_init(void)
 {
 	configurePin(m4_led);
 	digitalWrite(m4_led, 1);
 }
 
 
-void led_update(void)
+void m4_led_update(void)
 {
 	m4_ledCounter++;
 	if (m4_ledCounter > 100000) { m4_ledCounter = 0; toggle(m4_led); }

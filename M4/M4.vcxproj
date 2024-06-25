@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <ClCompile>
-      <AdditionalIncludeDirectories>Code/inc;Code;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Code/inc;Code;Code/sys/inc;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions />
       <CLanguageStandard />
@@ -88,7 +88,6 @@
     <ClInclude Include="Code\sys\inc\core_cmFunc.h" />
     <ClInclude Include="Code\sys\inc\core_cmInstr.h" />
     <ClInclude Include="Code\sys\inc\core_cmSimd.h" />
-    <ClInclude Include="Code\sys\inc\gpio.h" />
     <ClInclude Include="Code\sys\inc\stm32h745xx.h" />
     <ClInclude Include="Code\sys\inc\stm32h7xx.h" />
     <ClInclude Include="Code\sys\system.h" />

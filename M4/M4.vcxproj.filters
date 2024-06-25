@@ -42,9 +42,6 @@
     <None Include="stm32.xml">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <ClCompile Include="$(BSP_ROOT)\STM32H7xxxx\StartupFiles\startup_stm32h745xx.c">
-      <Filter>Source files\Device-specific files</Filter>
-    </ClCompile>
     <ClCompile Include="$(EFP_BASE)\Profiler\FastSemihosting.cpp">
       <Filter>Source files\Device-specific files\Semihosting/Profiler</Filter>
     </ClCompile>
@@ -77,13 +74,13 @@
     <ClCompile Include="Code\m4_main.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\sys\src\gpio.cpp">
-      <Filter>Source files</Filter>
-    </ClCompile>
     <ClCompile Include="Code\startup_stm32h745xx.c">
       <Filter>Source files</Filter>
     </ClCompile>
     <ClCompile Include="Code\sys\system.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\sys\src\gpio.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,9 +104,6 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="Code\sys\inc\core_cmSimd.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\sys\inc\gpio.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="Code\sys\inc\stm32h745xx.h">
