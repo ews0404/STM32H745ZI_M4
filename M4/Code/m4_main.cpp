@@ -1,4 +1,5 @@
 #include "sys/system.h"
+#include "../Common/inc/foo.h"
 
 int main(void)
 {

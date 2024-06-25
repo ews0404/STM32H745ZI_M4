@@ -106,13 +106,16 @@
     <ClInclude Include="Code\sys\inc\core_cmSimd.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="Code\sys\inc\stm32h745xx.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
     <ClInclude Include="Code\sys\inc\stm32h7xx.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="Code\sys\system.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\sys\inc\stm32h745xx.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\sys\inc\gpio.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,20 @@
 #pragma once
+#include <stdint.h>
 
 namespace sys
 {
 	void init(void);
 	void update(void);
+	
+	uint32_t getMillis(void);
+	uint32_t getMillisSince(uint32_t oldMillis);
 }
 
+// M4 parameters
+#define M4_SYSCLOCK_HZ	200000000			// M4 core clock rate in Hz
+#define M4_LED_MILLIS	500					// M4 led blink rate in milliseconds
 
+// debug macros
 #ifdef DEBUG
 	#include <stdio.h>
 	#define SYS_TRACE(...) do { printf(__VA_ARGS__); } while(0)

@@ -1,11 +1,16 @@
+#include <limits.h>
 #include "system.h"
 #include "inc/stm32h7xx.h"
-#include "inc/gpio.h"
+#include "../inc/gpio.h"
+
 
 using namespace gpio;
 
+
 static pinDef m4_led = { .port = GPIOB, .pin = PIN_0, .mode = Output, .type = PushPull, .speed = Low, .pull = None, .alternate = AF0 };
-static uint32_t m4_ledCounter = 0;
+static uint32_t m4_systick_milliseconds;
+static uint32_t m4_led_millis;
+
 
 static void m4_led_init(void);
 static void m4_led_update(void);
@@ -13,6 +18,9 @@ static void pwr_init(void);
 static void flash_init(void);
 static void lse_clock_init(void);
 static void hse_clock_init(void);
+static void m4_nvic_init(void);
+static void m4_fpu_init(void);
+static void m4_systick_init(void);
 static void startM7(void);
 static void waitForM7(void);
 
@@ -25,6 +33,9 @@ void sys::init(void)
 	flash_init();
 	lse_clock_init();
 	hse_clock_init();
+	m4_nvic_init();
+	m4_fpu_init();
+	m4_systick_init();
 	
 	// make the M4 wait while the M7 does its configuration
 	startM7();
@@ -42,13 +53,17 @@ void m4_led_init(void)
 {
 	configurePin(m4_led);
 	digitalWrite(m4_led, 1);
+	m4_led_millis = sys::getMillis();
 }
+
 
 
 void m4_led_update(void)
 {
-	m4_ledCounter++;
-	if (m4_ledCounter > 100000) { m4_ledCounter = 0; toggle(m4_led); }
+	if (sys::getMillisSince(m4_led_millis) > M4_LED_MILLIS) {
+		m4_led_millis = sys::getMillis();
+		toggle(m4_led);
+	}
 }
 
 
@@ -153,4 +168,50 @@ void hse_clock_init(void)
 //	MODIFY_REG(RCC->CFGR, RCC_CFGR_MCO2_Msk, 0b000 << RCC_CFGR_MCO2_Pos);				// select SYSCLK as input 
 //	MODIFY_REG(RCC->CFGR, RCC_CFGR_MCO2PRE_Msk, 8 << RCC_CFGR_MCO2PRE_Pos);				// divide input by 8 to get 50MHz on MCO2 pin
 //	configurePin(mco2Pin);																// configure and enable pin as MCO2 output
+}
+
+
+void m4_nvic_init(void)
+{
+	NVIC_SetPriorityGrouping(3);		// use 4 priority bits and 4 subpriority bits, for 16 interrupt priority levels
+	__enable_irq();						// global interrupt enable
+}
+
+
+void m4_fpu_init(void)
+{
+	// allow full access to the floating point hardware processor (PM0214 4.6.1)
+	SCB->CPACR |= (0x3 << 20);
+}
+
+
+void m4_systick_init(void)
+{
+	// set up systick counter to increment once every millisecond, based on the M4 clock (PM0214 4.5)
+	SysTick->LOAD = (M4_SYSCLOCK_HZ / 1000U - 1);						// 24 bit timer will count down from this value (SYST_RVR)
+	SysTick->VAL = 0UL;													// set starting value of counter (SYST_CVR)
+	NVIC_SetPriority(SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL);	// set SysTick interrupt priority ( 1<<(4 prio bits) - 1 = 15, lowest priority)
+	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk;							// SysTick uses main processor clock (SYST_CSR)
+	SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;							// count to 0 changes SysTick interrupt status to pending
+	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;							// enable SysTick counter
+}
+
+
+extern "C" void SysTick_Handler()
+{
+	m4_systick_milliseconds++;
+}
+
+
+uint32_t sys::getMillis(void)
+{
+	return m4_systick_milliseconds;
+}
+
+
+uint32_t sys::getMillisSince(uint32_t oldMillis)
+{
+	// if milliseconds < oldMillis the milliseconds counter overflowed and we can handle that happening one time,
+	// each overflow takes ~49.7 days 
+	return (m4_systick_milliseconds >= oldMillis) ? (m4_systick_milliseconds - oldMillis) : (UINT_MAX - oldMillis + m4_systick_milliseconds + 1);
 }
