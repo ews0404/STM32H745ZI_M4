@@ -27,7 +27,7 @@ namespace hsem
 	};
 	
 	void init(void);								// turn on HSEM clock, clear all semaphores
-	bool take(HSEM_ID hsemID, Core_ID coreID);		// 1-step semaphore take, returns true if successful
-	void release(HSEM_ID hsemID, Core_ID coreID);	// release the semaphore
+	bool lock(HSEM_ID hsemID, Core_ID coreID);		// 1-step semaphore take, returns true if successful
+	void unlock(HSEM_ID hsemID, Core_ID coreID);	// release the semaphore
 	bool isLocked(HSEM_ID hsemID);					// returns lock status regardless of core 
 }

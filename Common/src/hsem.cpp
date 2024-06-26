@@ -15,13 +15,13 @@ void hsem::init(void)
 }
 
 
-bool hsem::take(HSEM_ID hsemID, Core_ID coreID)
+bool hsem::lock(HSEM_ID hsemID, Core_ID coreID)
 {
 	// check inputs
 	if (hsemID > 31) { SYS_ERROR("invalid hsem_id: %d", hsemID); }
 	if ((coreID != m4_coreID) && (coreID != m7_coreID)) { SYS_ERROR("invalid hsem coreID: %d", coreID); }
 	
-	// attempt to take the designated semaphore using the 1-step lock procedure (RM0399 11.3.3)
+	// attempt to lock the designated semaphore using the 1-step lock procedure (RM0399 11.3.3)
 	uint32_t hsem = HSEM->RLR[hsemID];
 	
 	// success when lock bit is set, coreID matches, and processID = 0
@@ -29,7 +29,7 @@ bool hsem::take(HSEM_ID hsemID, Core_ID coreID)
 }
 
 
-void hsem::release(HSEM_ID hsemID, Core_ID coreID)
+void hsem::unlock(HSEM_ID hsemID, Core_ID coreID)
 {
 	// check inputs
 	if (hsemID > 31) { SYS_ERROR("invalid hsem_id: %d", hsemID); }
