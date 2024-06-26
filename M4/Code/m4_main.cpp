@@ -1,11 +1,10 @@
 #include "sys/system.h"
-#include "../Common/inc/foo.h"
 
 int main(void)
 {
-	sys::init();
+	sys4::init();
 	
 	while (1) {
-		sys::update();
+		sys4::update();
 	}
 }

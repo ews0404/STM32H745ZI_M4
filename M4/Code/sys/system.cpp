@@ -1,7 +1,7 @@
 #include <limits.h>
 #include "system.h"
 #include "inc/stm32h7xx.h"
-#include "../inc/gpio.h"
+#include "../Common/inc/gpio.h"
 
 
 using namespace gpio;
@@ -25,7 +25,7 @@ static void startM7(void);
 static void waitForM7(void);
 
 
-void sys::init(void)
+void sys4::init(void)
 {
 	// let the M4 do its conifiguration while the M7 waits
 	m4_led_init();
@@ -43,7 +43,7 @@ void sys::init(void)
 }
 
 
-void sys::update(void)
+void sys4::update(void)
 {
 	m4_led_update();
 }
@@ -53,15 +53,15 @@ void m4_led_init(void)
 {
 	configurePin(m4_led);
 	digitalWrite(m4_led, 1);
-	m4_led_millis = sys::getMillis();
+	m4_led_millis = sys4::getMillis();
 }
 
 
 
 void m4_led_update(void)
 {
-	if (sys::getMillisSince(m4_led_millis) > M4_LED_MILLIS) {
-		m4_led_millis = sys::getMillis();
+	if (sys4::getMillisSince(m4_led_millis) > M4_LED_MILLIS) {
+		m4_led_millis = sys4::getMillis();
 		toggle(m4_led);
 	}
 }
@@ -203,13 +203,13 @@ extern "C" void SysTick_Handler()
 }
 
 
-uint32_t sys::getMillis(void)
+uint32_t sys4::getMillis(void)
 {
 	return m4_systick_milliseconds;
 }
 
 
-uint32_t sys::getMillisSince(uint32_t oldMillis)
+uint32_t sys4::getMillisSince(uint32_t oldMillis)
 {
 	// if milliseconds < oldMillis the milliseconds counter overflowed and we can handle that happening one time,
 	// each overflow takes ~49.7 days 

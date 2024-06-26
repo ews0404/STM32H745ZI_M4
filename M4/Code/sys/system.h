@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-namespace sys
+namespace sys4
 {
 	void init(void);
 	void update(void);

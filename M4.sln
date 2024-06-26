@@ -36,4 +36,8 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CB6994BC-8C54-4C20-A432-0B17A2A14271}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Common\Common.vcxitems*{309e345e-6548-4f6b-a0d7-bd0df92e4c02}*SharedItemsImports = 4
+		Common\Common.vcxitems*{90eb1187-01ac-46a4-9c6b-d4f3fc824beb}*SharedItemsImports = 9
+	EndGlobalSection
 EndGlobal
