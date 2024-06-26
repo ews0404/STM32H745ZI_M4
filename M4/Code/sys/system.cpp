@@ -2,7 +2,7 @@
 #include "system.h"
 #include "inc/stm32h7xx.h"
 #include "../Common/inc/gpio.h"
-
+#include "../Common/inc/hsem.h"
 
 using namespace gpio;
 
@@ -36,6 +36,7 @@ void sys4::init(void)
 	m4_nvic_init();
 	m4_fpu_init();
 	m4_systick_init();
+	hsem::init();
 	
 	// make the M4 wait while the M7 does its configuration
 	startM7();

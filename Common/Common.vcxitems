@@ -21,10 +21,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\core_cmInstr.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\core_cmSimd.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\gpio.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)inc\hsem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\stm32h745xx.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\stm32h7xx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)src\gpio.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\hsem.cpp" />
   </ItemGroup>
 </Project>
