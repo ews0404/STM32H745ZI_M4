@@ -33,12 +33,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
     <GNUConfigurationType>Debug</GNUConfigurationType>
     <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
-    <ToolchainVersion>12.3.1/13.2/r1</ToolchainVersion>
+    <ToolchainVersion>13.3.1/14.2/r1</ToolchainVersion>
     <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|VisualGDB'">
     <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
-    <ToolchainVersion>12.3.1/13.2/r1</ToolchainVersion>
+    <ToolchainVersion>13.3.1/14.2/r1</ToolchainVersion>
     <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|VisualGDB'">
@@ -65,6 +65,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="Code\m4_main.cpp" />
+    <ClCompile Include="Code\sys\src\m4_messageProcessor.cpp" />
     <ClCompile Include="Code\sys\system.cpp" />
     <ClCompile Include="Code\startup_stm32h745xx.c" />
     <None Include="stm32.props" />
@@ -82,6 +83,7 @@
     <ClInclude Include="$(EFP_BASE)\Profiler\DebuggerChecker.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\sys\inc\m4_messageProcessor.h" />
     <ClInclude Include="Code\sys\system.h" />
   </ItemGroup>
 </Project>

@@ -80,12 +80,18 @@
     <ClCompile Include="Code\sys\system.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\sys\src\m4_messageProcessor.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <LinkerScript Include="Code\STM32H745ZI_M4_flash.lds" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\sys\system.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\sys\inc\m4_messageProcessor.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

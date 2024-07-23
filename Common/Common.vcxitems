@@ -22,11 +22,22 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\core_cmSimd.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\gpio.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\hsem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)inc\messageID.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)inc\messageQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\stm32h745xx.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)inc\stm32h7xx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)src\gpio.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)src\hsem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\messageQueue.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)doc\DS12923 STM32H745 Datasheet.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)doc\ES0445 STM32H745 errata.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)doc\Nucleo-H745ZI-Q Schematic D01.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)doc\PM0214 M4 programming manual.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)doc\PM0253 M7 programming manual.pdf" />
+    <None Include="$(MSBuildThisFileDirectory)doc\RM0399 STM32H745 Reference Manual.pdf" />
   </ItemGroup>
 </Project>

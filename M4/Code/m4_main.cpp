@@ -1,6 +1,6 @@
 #include "sys/system.h"
 
-int main(void)
+int __attribute__((naked, noreturn)) main(void)
 {
 	sys4::init();
 	

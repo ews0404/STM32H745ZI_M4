@@ -3,6 +3,8 @@
 #include "inc/stm32h7xx.h"
 #include "../Common/inc/gpio.h"
 #include "../Common/inc/hsem.h"
+#include "../Common/inc/messageQueue.h"
+#include "inc/m4_messageProcessor.h"
 
 using namespace gpio;
 
@@ -10,7 +12,7 @@ using namespace gpio;
 static pinDef m4_led = { .port = GPIOB, .pin = PIN_0, .mode = Output, .type = PushPull, .speed = Low, .pull = None, .alternate = AF0 };
 static uint32_t m4_systick_milliseconds;
 static uint32_t m4_led_millis;
-
+uint32_t m7_led = 0;
 
 static void m4_led_init(void);
 static void m4_led_update(void);
@@ -37,6 +39,8 @@ void sys4::init(void)
 	m4_fpu_init();
 	m4_systick_init();
 	hsem::init();
+	messageQueue::init(messageQueue::M4toM7);
+	m4_messageProcessor::init();
 	
 	// make the M4 wait while the M7 does its configuration
 	startM7();
@@ -47,6 +51,7 @@ void sys4::init(void)
 void sys4::update(void)
 {
 	m4_led_update();
+	m4_messageProcessor::update();
 }
 
 
@@ -58,12 +63,13 @@ void m4_led_init(void)
 }
 
 
-
 void m4_led_update(void)
 {
 	if (sys4::getMillisSince(m4_led_millis) > M4_LED_MILLIS) {
 		m4_led_millis = sys4::getMillis();
 		toggle(m4_led);
+		messageQueue::sendMessage(messageQueue::M4toM7, SetLED, 4, (uint8_t*)&m7_led);
+		m7_led++;
 	}
 }
 

@@ -22,8 +22,8 @@ namespace hsem
 	// the hardware semaphores are numbered 0-31, assign them to controlled resources
 	enum HSEM_ID : uint8_t
 	{
-		hsem_M7msgQueue = 0,
-		hsem_M4msgQueue = 1
+		hsemID_M4toM7 = 0,
+		hsemID_M7toM4 = 1
 	};
 	
 	void init(void);								// turn on HSEM clock, clear all semaphores
